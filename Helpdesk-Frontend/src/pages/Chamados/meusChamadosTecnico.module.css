@@ -1,0 +1,1096 @@
+/* CHAMADOS — ATENDIMENTO DO TÉCNICO */
+
+/*
+ * * ========================================
+ * * CONTAINER
+ * * ========================================
+ */
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 80px);
+  overflow: hidden;
+  background: radial-gradient(
+    circle at 85% 10%,
+    var(--color-rgba-66-98-200-0-06),
+    transparent 25%
+    ),
+    var(--color-hex-f5f7fb);
+}
+
+/*
+ * * ========================================
+ * * TOPO / FILTROS
+ * * ========================================
+ */
+
+.topBar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 24px;
+  background: var(--color-rgba-255-255-255-0-94);
+  border-bottom: 1px solid var(--color-hex-e7ebf2);
+  box-shadow: 0 4px 18px var(--color-rgba-15-23-42-0-03);
+  backdrop-filter: blur(12px);
+  z-index: 2;
+}
+
+.topBar input {
+  flex: 1;
+  height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--color-hex-dde3ed);
+  border-radius: 12px;
+  background: var(--background);
+  color: var(--color-hex-1e293b);
+  font-size: 14px;
+  transition: border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.topBar input::placeholder {
+  color: var(--color-hex-94a3b8);
+}
+
+.topBar input:hover {
+  border-color: var(--color-hex-cbd5e1);
+}
+
+.topBar input:focus {
+  outline: none;
+  background: white;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 4px var(--color-rgba-66-98-200-0-1);
+}
+
+.topBar select {
+  min-width: 210px;
+  height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--color-hex-dde3ed);
+  border-radius: 12px;
+  background: var(--background);
+  color: var(--color-hex-475569);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.topBar select:hover {
+  border-color: var(--color-hex-cbd5e1);
+}
+
+.topBar select:focus {
+  outline: none;
+  background: white;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 4px var(--color-rgba-66-98-200-0-1);
+}
+
+/*
+ * * ========================================
+ * * LAYOUT PRINCIPAL
+ * * ========================================
+ */
+
+.mainContent {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/*
+ * * ========================================
+ * * SIDEBAR / LISTA DE CHAMADOS
+ * * ========================================
+ */
+
+.sidebar {
+  width: 360px;
+  flex-shrink: 0;
+  padding: 10px;
+  overflow-y: auto;
+  background: var(--background);
+  border-right: 1px solid var(--color-hex-e5eaf1);
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--color-hex-cbd5e1);
+  border-radius: 999px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--color-hex-aeb9c9);
+}
+
+/*
+ * * ========================================
+ * * TICKET
+ * * ========================================
+ */
+
+.ticket {
+  position: relative;
+  padding: 16px;
+  margin-bottom: 8px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ticket:hover {
+  background: white;
+  border-color: var(--color-hex-e5eaf1);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px var(--color-rgba-15-23-42-0-05);
+}
+
+/* Ticket selecionado */
+
+.active {
+  background: linear-gradient(
+    135deg,
+    var(--color-rgba-41-54-129-0-09),
+    var(--color-rgba-66-98-200-0-04)
+    );
+  border-color: var(--color-rgba-66-98-200-0-18);
+  box-shadow: 0 8px 22px var(--color-rgba-41-54-129-0-08);
+}
+
+.active::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 16px;
+  bottom: 16px;
+  width: 4px;
+  border-radius: 0 6px 6px 0;
+  background: linear-gradient(180deg, var(--primary), var(--color-hex-5576e8));
+}
+
+/*
+ * * ========================================
+ * * CONTEÚDO DO TICKET
+ * * ========================================
+ */
+
+.ticketTop {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.ticket strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 750;
+  color: var(--color-hex-18224f);
+  letter-spacing: 0.2px;
+}
+
+.ticket > span {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 10px;
+  color: var(--color-hex-475569);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.usuarioInfo {
+  margin-top: 5px;
+  color: var(--text-light);
+}
+
+.usuarioInfo small {
+  display: block;
+  overflow: hidden;
+  font-size: 11px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.usuarioInfo strong {
+  display: inline;
+  font-size: 11px;
+  color: var(--color-hex-8a94a6);
+  font-weight: 600;
+}
+
+/*
+ * * ========================================
+ * * RODAPÉ DO TICKET
+ * * ========================================
+ */
+
+.ticketFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--color-hex-eef1f5);
+}
+
+.ticketFooter small {
+  color: var(--color-hex-94a3b8);
+  font-size: 11px;
+  white-space: nowrap;
+}
+
+/*
+ * * ========================================
+ * * PRIORIDADES
+ * * ========================================
+ */
+
+.prioridade {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 24px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.critica {
+  background: var(--color-hex-fff0f0);
+  color: var(--color-hex-d92d20);
+  border: 1px solid var(--color-hex-ffd5d2);
+}
+
+.alta {
+  background: var(--color-hex-fff4e8);
+  color: var(--color-hex-d95d00);
+  border: 1px solid var(--color-hex-ffdfba);
+}
+
+.media {
+  background: var(--color-hex-fff9e8);
+  color: var(--color-hex-b77900);
+  border: 1px solid var(--color-hex-f7e3a2);
+}
+
+.baixa {
+  background: var(--color-hex-ecfdf5);
+  color: var(--color-hex-168a5b);
+  border: 1px solid var(--color-hex-b8f0d5);
+}
+
+/*
+ * * ========================================
+ * * CARREGAR MAIS
+ * * ========================================
+ */
+
+.carregarMais {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  margin: 8px 0 14px;
+  border: 1px dashed var(--color-hex-cbd5e1);
+  border-radius: 12px;
+  color: var(--primary-light);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.carregarMais:hover {
+  background: white;
+  border-color: var(--color-hex-5576e8);
+  transform: translateY(-1px);
+}
+
+/*
+ * * ========================================
+ * * ÁREA PRINCIPAL
+ * * ========================================
+ */
+
+.content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 38px 42px 50px;
+  background: radial-gradient(
+    circle at 90% 0%,
+    var(--color-rgba-85-118-232-0-06),
+    transparent 28%
+    ),
+    var(--color-hex-f5f7fb);
+}
+
+.content::-webkit-scrollbar {
+  width: 7px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: var(--color-hex-cbd5e1);
+  border-radius: 999px;
+}
+
+/*
+ * * ========================================
+ * * VISUALIZAÇÃO DO CHAMADO
+ * * ========================================
+ */
+
+.ticketView {
+  width: 100%;
+  max-width: 1050px;
+  margin: 0 auto;
+}
+
+/*
+ * * ========================================
+ * * HEADER DO CHAMADO
+ * * ========================================
+ */
+
+.ticketHeader {
+  position: relative;
+  margin-bottom: 22px;
+  padding: 26px 30px;
+  overflow: hidden;
+  border: 1px solid var(--color-hex-e5eaf1);
+  border-radius: 20px;
+  background: linear-gradient(135deg, var(--surface), var(--color-hex-f8faff));
+  box-shadow: 0 10px 30px var(--color-rgba-15-23-42-0-05);
+}
+
+.ticketHeader::after {
+  content: "";
+  position: absolute;
+  top: -80px;
+  right: -50px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--color-rgba-66-98-200-0-06);
+  filter: blur(10px);
+}
+
+.ticketHeader h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  color: var(--color-hex-18224f);
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+.ticketHeader span {
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-top: 8px;
+  color: var(--text-light);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/*
+ * * ========================================
+ * * INFORMAÇÕES DO CHAMADO
+ * * ========================================
+ */
+
+.chamadoInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.chamadoInfo div {
+  flex: 1;
+  min-width: 240px;
+  padding: 14px 16px;
+  border: 1px solid var(--color-hex-e5eaf1);
+  border-radius: 14px;
+  background: var(--color-rgba-255-255-255-0-8);
+  color: var(--text-light);
+  font-size: 13px;
+  box-shadow: 0 4px 14px var(--color-rgba-15-23-42-0-025);
+}
+
+.chamadoInfo strong {
+  color: var(--color-hex-18224f);
+  font-weight: 700;
+}
+
+/*
+ * * ========================================
+ * * DESCRIÇÃO
+ * * ========================================
+ */
+
+.messageCard {
+  position: relative;
+  padding: 26px 28px;
+  margin-bottom: 20px;
+  border: 1px solid var(--color-hex-e5eaf1);
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 8px 26px var(--color-rgba-15-23-42-0-045);
+}
+
+.messageCard::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 24px;
+  bottom: 24px;
+  width: 3px;
+  border-radius: 0 4px 4px 0;
+  background: linear-gradient(180deg, var(--primary), var(--color-hex-5576e8));
+}
+
+.messageCard p {
+  margin: 0;
+  padding-left: 10px;
+  color: var(--color-hex-475569);
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/*
+ * * ========================================
+ * * BOTÕES DE AÇÃO
+ * * ========================================
+ */
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.commentsBtn,
+.transferBtn,
+.closeTicketBtn,
+.receiveEquipmentBtn {
+  border: none;
+  min-height: 44px;
+  padding: 0 18px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.commentsBtn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: var(--text-white);
+  box-shadow: 0 8px 18px var(--color-rgba-41-54-129-0-2);
+}
+
+.commentsBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px var(--color-rgba-41-54-129-0-28);
+}
+
+.transferBtn {
+  background: var(--color-hex-fff7ed);
+  color: var(--color-hex-d95d00);
+  border: 1px solid var(--color-hex-fed7aa);
+}
+
+.transferBtn:hover:not(:disabled) {
+  background: var(--color-hex-ffedd5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px var(--color-rgba-217-93-0-0-12);
+}
+
+.transferBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
+}
+
+.closeTicketBtn {
+  background: var(--color-hex-fff0f0);
+  color: var(--color-hex-d92d20);
+  border: 1px solid var(--color-hex-ffd5d2);
+}
+
+.closeTicketBtn:hover {
+  background: var(--color-hex-ffd5d2);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px var(--color-rgba-239-68-68-0-18);
+}
+
+.receiveEquipmentBtn {
+  background: var(--color-hex-ecfdf5);
+  color: var(--success);
+  border: 1px solid var(--color-hex-b8f0d5);
+}
+
+.receiveEquipmentBtn:hover:not(:disabled) {
+  background: var(--color-hex-dcfce7);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px var(--color-rgba-22-163-74-0-2);
+}
+
+.receiveEquipmentBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.commentsBtn:active,
+.transferBtn:active,
+.closeTicketBtn:active,
+.receiveEquipmentBtn:active {
+  transform: translateY(0);
+}
+
+/*
+ * * ========================================
+ * * DETALHES
+ * * ========================================
+ */
+
+.detailsCard {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  overflow: hidden;
+  border: 1px solid var(--color-hex-e5eaf1);
+  border-radius: 18px;
+  background: var(--color-hex-e9edf3);
+  box-shadow: 0 8px 26px var(--color-rgba-15-23-42-0-04);
+}
+
+.detailsCard div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px 24px;
+  background: white;
+}
+
+.detailsCard strong {
+  color: var(--color-hex-8a94a6);
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.detailsCard div
+> span:not(.prioridade):not(.statusBadge):not(.statusAguardandoEquipamento) {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.statusBadge,
+.statusAguardandoEquipamento {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 24px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.statusBadge {
+  background: var(--secondary-light);
+  color: var(--text-light);
+}
+
+.statusAguardandoEquipamento {
+  background: var(--color-hex-fff7ed);
+  color: var(--color-hex-d95d00);
+  border: 1px solid var(--color-hex-fed7aa);
+}
+
+/*
+ * * ========================================
+ * * EMPTY
+ * * ========================================
+ */
+
+.empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  min-height: 300px;
+  border: 1px dashed var(--color-hex-cbd5e1);
+  border-radius: 20px;
+  background: var(--color-rgba-255-255-255-0-55);
+  color: var(--color-hex-94a3b8);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/*
+ * * ========================================
+ * * MODAL OVERLAY
+ * * ========================================
+ */
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--color-rgba-15-23-42-0-5);
+  backdrop-filter: blur(6px);
+  z-index: 9999;
+}
+
+/*
+ * * ========================================
+ * * MODAL
+ * * ========================================
+ */
+
+.modal {
+  width: 100%;
+  max-width: 440px;
+  padding: 28px;
+  border: 1px solid var(--color-rgba-255-255-255-0-6);
+  border-radius: 20px;
+  background: var(--color-rgba-255-255-255-0-98);
+  box-shadow: 0 25px 70px var(--color-rgba-15-23-42-0-28);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: modalIn 0.25s ease-out;
+}
+
+.modal h3 {
+  margin: 0;
+  color: var(--color-hex-18224f);
+  font-size: 21px;
+  font-weight: 800;
+}
+
+.modal p {
+  margin: -5px 0 4px;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+.modal select {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--color-hex-dbe2ea);
+  border-radius: 12px;
+  background: var(--background);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.modal select:focus {
+  background: white;
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 4px var(--color-rgba-66-98-200-0-1);
+}
+
+/*
+ * * ========================================
+ * * AÇÕES DO MODAL
+ * * ========================================
+ */
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.modalActions button {
+  min-height: 42px;
+  border: none;
+  border-radius: 10px;
+  padding: 0 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+/* Cancelar */
+
+.modalActions button:first-child {
+  background: var(--secondary-light);
+  color: var(--text-light);
+}
+
+.modalActions button:first-child:hover {
+  background: var(--border);
+}
+
+/* Transferir */
+
+.modalActions button:last-child {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+  box-shadow: 0 6px 16px var(--color-rgba-41-54-129-0-18);
+}
+
+.modalActions button:last-child:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px var(--color-rgba-41-54-129-0-25);
+}
+
+/*
+ * * ========================================
+ * * ANIMAÇÕES
+ * * ========================================
+ */
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/*
+ * * ========================================
+ * * TABLET
+ * * ========================================
+ */
+
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 320px;
+  }
+
+  .content {
+    padding: 28px;
+  }
+
+  .ticketHeader h2 {
+    font-size: 28px;
+  }
+}
+
+/*
+ * * ========================================
+ * * MOBILE
+ * * ========================================
+ */
+
+@media (max-width: 768px) {
+  .container {
+    height: auto;
+    min-height: calc(100vh - 80px);
+    overflow: visible;
+  }
+
+  .topBar {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 14px 16px;
+  }
+
+  .topBar input,
+  .topBar select {
+    width: 100%;
+    flex: none;
+  }
+
+  .mainContent {
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 320px;
+    padding: 8px;
+    border-right: none;
+    border-bottom: 1px solid var(--color-hex-e5eaf1);
+  }
+
+  .content {
+    padding: 20px 16px;
+    overflow: visible;
+  }
+
+  .ticketHeader {
+    padding: 22px;
+  }
+
+  .ticketHeader h2 {
+    font-size: 26px;
+  }
+
+  .ticketHeader span {
+    font-size: 14px;
+  }
+
+  .chamadoInfo {
+    flex-direction: column;
+  }
+
+  .chamadoInfo div {
+    width: 100%;
+  }
+
+  .messageCard {
+    padding: 22px;
+  }
+
+  .messageCard p {
+    font-size: 14px;
+  }
+
+  .detailsCard {
+    grid-template-columns: 1fr;
+  }
+
+  .commentsBtn,
+  .transferBtn,
+  .closeTicketBtn,
+  .receiveEquipmentBtn {
+    width: 100%;
+  }
+
+  .modal {
+    padding: 24px;
+  }
+}
+
+/*
+ * * ========================================
+ * * INFORMAÇÕES COMPLEMENTARES DO CHAMADO
+ * * ========================================
+ */
+
+.ticketTop {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ticketCategory {
+  overflow: hidden;
+  margin-bottom: 8px;
+  color: var(--primary-light);
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.ticketHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.statusBadge,
+.headerStatus {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 24px;
+  padding: 4px 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 750;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.ticketHeader .headerStatus {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  margin-top: 2px;
+  color: var(--text-light);
+  font-size: 10px;
+}
+
+.statusAberto {
+  border-color: var(--color-hex-dde3ed);
+  background: var(--secondary-light);
+  color: var(--text-light);
+}
+
+.statusEmAtendimento {
+  border-color: var(--color-hex-b8f0d5);
+  background: var(--color-hex-ecfdf5);
+  color: var(--success);
+}
+
+.statusAguardandoRetorno {
+  border-color: var(--color-hex-f7e3a2);
+  background: var(--color-hex-fff9e8);
+  color: var(--color-hex-b77900);
+}
+
+.statusDistribuido {
+  border-color: var(--color-rgba-66-98-200-0-18);
+  background: var(--color-rgba-66-98-200-0-1);
+  color: var(--primary);
+}
+
+.statusAguardandoEquipamento {
+  border-color: var(--color-hex-fed7aa);
+  background: var(--color-hex-fff7ed);
+  color: var(--color-hex-d95d00);
+}
+
+.ticketHeader .statusAberto {
+  color: var(--text-light);
+}
+
+.ticketHeader .statusEmAtendimento {
+  color: var(--success);
+}
+
+.ticketHeader .statusAguardandoRetorno {
+  color: var(--color-hex-b77900);
+}
+
+.ticketHeader .statusDistribuido {
+  color: var(--primary);
+}
+
+.ticketHeader .statusAguardandoEquipamento {
+  color: var(--color-hex-d95d00);
+}
+
+.statusContext {
+  margin: -8px 0 22px;
+  padding: 12px 16px;
+  border: 1px solid var(--color-rgba-66-98-200-0-18);
+  border-radius: 12px;
+  background: var(--color-rgba-66-98-200-0-04);
+  color: var(--color-hex-475569);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.detailsCard {
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+}
+
+.timeSection {
+  margin-top: 22px;
+}
+
+.sectionHeading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.sectionHeading > span {
+  color: var(--color-hex-18224f);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.sectionHeading small {
+  color: var(--color-hex-8a94a6);
+  font-size: 12px;
+}
+
+.timeGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 10px;
+}
+
+.timeCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 94px;
+  padding: 16px;
+  border: 1px solid var(--color-hex-e5eaf1);
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 5px 16px var(--color-rgba-15-23-42-0-035);
+}
+
+.timeCard span {
+  color: var(--color-hex-8a94a6);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+.timeCard strong {
+  color: var(--color-hex-18224f);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+@media (max-width: 768px) {
+  .ticketHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .ticketHeader .headerStatus {
+    align-self: flex-start;
+  }
+
+  .timeGrid {
+    grid-template-columns: 1fr;
+  }
+}

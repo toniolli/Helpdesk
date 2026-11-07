@@ -1,0 +1,256 @@
+/* BARRA SUPERIOR — MODAL DE TROCA DE SENHA */
+
+/* MODAL — ESTRUTURA E SOBREPOSIÇÃO */
+
+.overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--color-rgba-15-23-42-0-48);
+  backdrop-filter: blur(4px);
+}
+
+.modal {
+  width: min(470px, 100%);
+  padding: 26px;
+  border: 1px solid var(--color-rgba-255-255-255-0-7);
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 24px 70px var(--color-rgba-15-23-42-0-28);
+  animation: modalIn 0.2s ease-out;
+}
+
+/* MODAL — CABEÇALHO */
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 13px;
+  background: var(--color-rgba-64-82-196-0-1);
+  color: var(--color-hex-4052c4);
+}
+
+.titleArea {
+  flex: 1;
+}
+
+.titleArea span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--color-hex-9aa3bd);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.titleArea h2 {
+  margin: 0;
+  color: var(--color-hex-202943);
+  font-size: 20px;
+  letter-spacing: -0.4px;
+}
+
+.closeButton {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-hex-68738f);
+  cursor: pointer;
+}
+
+.closeButton:hover:not(:disabled) {
+  background: var(--color-hex-f4f5f9);
+  color: var(--color-hex-33405f);
+}
+
+/* MODAL — FORMULÁRIO DE SENHA */
+
+.description {
+  margin: 22px 0;
+  color: var(--color-hex-707a91);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.errorMessage {
+  margin-bottom: 18px;
+  padding: 11px 13px;
+  border: 1px solid var(--color-hex-fee2e2);
+  border-radius: 10px;
+  background: var(--color-hex-fee2e2);
+  color: var(--color-hex-b91c1c);
+  font-size: 13px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: var(--color-hex-4b5568);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.form input {
+  width: 100%;
+  height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--color-hex-dbe2ea);
+  border-radius: 10px;
+  background: var(--color-hex-fafbfe);
+  color: var(--text);
+  font-size: 14px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.form input:hover {
+  border-color: var(--color-hex-c8cfdd);
+  background: white;
+}
+
+.form input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px var(--color-rgba-41-54-129-0-1);
+}
+
+.passwordInput {
+  position: relative;
+}
+
+.passwordInput input {
+  padding-right: 46px;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--color-hex-68738f);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.passwordToggle:hover:not(:disabled) {
+  background: var(--color-hex-f4f5f9);
+  color: var(--primary);
+}
+
+.passwordToggle:disabled {
+  cursor: not-allowed;
+}
+
+/* MODAL — AÇÕES */
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.actions button {
+  height: 42px;
+  padding: 0 17px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cancelButton {
+  border: 1px solid var(--color-hex-dbe2ea);
+  background: white;
+  color: var(--color-hex-56617d);
+}
+
+.cancelButton:hover:not(:disabled) {
+  background: var(--color-hex-f6f7fb);
+}
+
+.submitButton {
+  border: none;
+  background: linear-gradient(135deg, var(--color-hex-4052c4), var(--color-hex-27347d));
+  color: white;
+  box-shadow: 0 7px 16px var(--color-rgba-41-54-129-0-2);
+}
+
+.submitButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.actions button:disabled,
+.closeButton:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+/* ANIMAÇÕES */
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 520px) {
+  .overlay {
+    align-items: flex-end;
+    padding: 12px;
+  }
+
+  .modal {
+    padding: 22px 18px;
+    border-radius: 18px 18px 12px 12px;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,652 @@
+/* CHAMADOS — FILA DE ATENDIMENTO */
+
+/*
+ * * ========================================
+ * * CONTAINER
+ * * ========================================
+ */
+
+.container {
+  min-height: 100%;
+  padding: 24px;
+  background: radial-gradient(
+    circle at 90% 0%,
+    var(--color-rgba-41-54-129-0-06),
+    transparent 28%
+    ),
+    var(--color-hex-f6f8fc);
+}
+
+.container h1 {
+  margin: 0 0 24px;
+  color: var(--color-hex-18224f);
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+/*
+ * * ========================================
+ * * BOARD
+ * * ========================================
+ */
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  width: 100%;
+}
+
+/*
+ * * ========================================
+ * * COLUNAS
+ * * ========================================
+ */
+
+.column {
+  min-width: 0;
+  max-height: 75vh;
+  padding: 12px;
+  overflow-y: auto;
+  border: 1px solid var(--color-hex-e4e8f0);
+  border-radius: 18px;
+  background: linear-gradient(
+    180deg,
+    var(--color-rgba-255-255-255-0-95),
+    var(--color-rgba-248-250-253-0-95)
+    );
+  box-shadow: 0 10px 30px var(--color-rgba-15-23-42-0-04);
+  transition: transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.column:hover {
+  box-shadow: 0 14px 35px var(--color-rgba-15-23-42-0-07);
+}
+
+/*
+ * * ========================================
+ * * SCROLL
+ * * ========================================
+ */
+
+.column::-webkit-scrollbar {
+  width: 5px;
+}
+
+.column::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.column::-webkit-scrollbar-thumb {
+  background: var(--color-hex-d5dbe7);
+  border-radius: 999px;
+}
+
+.column::-webkit-scrollbar-thumb:hover {
+  background: var(--color-hex-b9c1d1);
+}
+
+/*
+ * * ========================================
+ * * TÍTULO DAS COLUNAS
+ * * ========================================
+ */
+
+.columnTitle {
+  position: sticky;
+  top: -12px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  margin-bottom: 12px;
+  padding: 0 4px;
+  background: var(--color-rgba-255-255-255-0-96);
+  border-bottom: 1px solid var(--color-hex-e8ecf3);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/*
+ * * ========================================
+ * * PRIORIDADES
+ * * ========================================
+ */
+
+.criticoTitle {
+  color: var(--danger);
+}
+
+.altaTitle {
+  color: var(--color-hex-ea580c);
+}
+
+.mediaTitle {
+  color: var(--color-hex-ca8a04);
+}
+
+.baixaTitle {
+  color: var(--secondary);
+}
+
+/*
+ * * ========================================
+ * * INFORMAÇÕES DO HEADER
+ * * ========================================
+ */
+
+.headerInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/*
+ * * ========================================
+ * * BADGE
+ * * ========================================
+ */
+
+.badge {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--color-hex-e2e7f0);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--color-hex-475569);
+  font-size: 10px;
+  font-weight: 800;
+  box-shadow: 0 2px 6px var(--color-rgba-15-23-42-0-05);
+}
+
+/*
+ * * ========================================
+ * * VER TODOS
+ * * ========================================
+ */
+
+.verTodos {
+  padding: 5px 8px;
+  border: 1px solid var(--color-hex-e2e7f0);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.verTodos:hover {
+  border-color: var(--color-hex-cbd5e1);
+  background: var(--color-hex-f8faff);
+  color: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+/*
+ * * ========================================
+ * * CARD
+ * * ========================================
+ */
+
+.card {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 14px;
+  border: 1px solid var(--color-hex-e5e9f1);
+  border-radius: 12px;
+  background: var(--surface);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 2px 7px var(--color-rgba-15-23-42-0-035);
+  transition: transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.card:last-child {
+  margin-bottom: 0;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-hex-cbd5e1);
+  background: var(--color-hex-fdfeff);
+  box-shadow: 0 10px 22px var(--color-rgba-15-23-42-0-08);
+}
+
+.card:focus-visible {
+  outline: 3px solid var(--color-rgba-41-54-129-0-25);
+  outline-offset: 2px;
+}
+
+/*
+ * * ========================================
+ * * TOPO DO CARD
+ * * ========================================
+ */
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+/*
+ * * ========================================
+ * * CORES DAS PRIORIDADES
+ * * ========================================
+ */
+
+.critico {
+  border-top: 3px solid var(--danger);
+}
+
+.alta {
+  border-top: 3px solid var(--color-hex-ea580c);
+}
+
+.media {
+  border-top: 3px solid var(--color-hex-ca8a04);
+}
+
+.baixa {
+  border-top: 3px solid var(--secondary);
+}
+
+/*
+ * * ========================================
+ * * ÍCONE
+ * * ========================================
+ */
+
+.cardIdentification {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.priorityDot {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.critico .priorityDot {
+  background: var(--danger);
+}
+
+.alta .priorityDot {
+  background: var(--color-hex-ea580c);
+}
+
+.media .priorityDot {
+  background: var(--color-hex-ca8a04);
+}
+
+.baixa .priorityDot {
+  background: var(--secondary);
+}
+
+.protocol {
+  color: var(--color-hex-526075);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+}
+
+.waitingTime {
+  color: var(--color-hex-667085);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.critico .waitingTime {
+  color: var(--danger);
+}
+
+/*
+ * * ========================================
+ * * CORPO DO CARD
+ * * ========================================
+ */
+
+.cardBody {
+  padding: 0;
+}
+
+.equipment {
+  margin-bottom: 8px;
+  color: var(--color-hex-17213d);
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.35;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.requesterInfo {
+  color: var(--color-hex-526075);
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.requesterInfo strong {
+  color: var(--color-hex-7d8799);
+  font-weight: 700;
+}
+
+/*
+ * * ========================================
+ * * DATA
+ * * ========================================
+ */
+
+.cardFooter {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-hex-eef1f5);
+  color: var(--color-hex-9aa3b2);
+  font-size: 10px;
+}
+
+.emptyColumn {
+  margin: 10px 0 4px;
+  padding: 18px 10px;
+  border: 1px dashed var(--color-hex-dbe2ec);
+  border-radius: 12px;
+  color: var(--color-hex-8b95a7);
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+/*
+ * * ========================================
+ * * MODAL
+ * * ========================================
+ */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: var(--color-rgba-15-23-42-0-5);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+}
+
+.modal {
+  width: 650px;
+  max-width: 100%;
+  max-height: 85vh;
+  padding: 30px;
+  overflow-y: auto;
+  border: 1px solid var(--color-rgba-255-255-255-0-7);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: 0 30px 80px var(--color-rgba-0-0-0-0-25);
+  animation: modalIn 0.25s ease-out;
+}
+
+.modal h2 {
+  margin: 0 0 24px;
+  color: var(--color-hex-18224f);
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.modal p {
+  margin-bottom: 12px;
+  color: var(--color-hex-526075);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.modal p strong {
+  color: var(--color-hex-25304d);
+}
+
+.modal hr {
+  border: none;
+  border-top: 1px solid var(--color-hex-e9edf3);
+  margin: 22px 0;
+}
+
+/*
+ * * ========================================
+ * * AÇÕES DO MODAL
+ * * ========================================
+ */
+
+.modalActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 28px;
+}
+
+.modalActions button {
+  min-height: 42px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.modalActions button:hover {
+  transform: translateY(-1px);
+}
+
+.modalActions button:first-child {
+  background: var(--color-hex-eef1f5);
+  color: var(--color-hex-526075);
+}
+
+.modalActions button:first-child:hover {
+  background: var(--color-hex-e1e6ed);
+}
+
+.modalActions button:last-child {
+  background: linear-gradient(
+    135deg,
+    var(--primary),
+    var(--primary-light)
+    );
+  color: var(--surface);
+  box-shadow: 0 8px 18px var(--color-rgba-41-54-129-0-22);
+}
+
+.modalActions button:last-child:hover {
+  box-shadow: 0 12px 24px var(--color-rgba-41-54-129-0-3);
+}
+
+/*
+ * * ========================================
+ * * TOAST
+ * * ========================================
+ */
+
+.toast {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  border: 1px solid var(--color-rgba-255-255-255-0-08);
+  border-radius: 14px;
+  background: var(--color-hex-18224f);
+  color: var(--surface);
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 9999;
+  box-shadow: 0 18px 40px var(--color-rgba-15-23-42-0-25);
+  animation: toastIn 0.35s ease-out;
+}
+
+.toast button {
+  min-height: 34px;
+  padding: 0 12px;
+  border: none;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.toast button:hover {
+  background: var(--color-hex-edf1ff);
+  transform: translateY(-1px);
+}
+
+/*
+ * * ========================================
+ * * ANIMAÇÕES
+ * * ========================================
+ */
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0)
+      scale(1);
+  }
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/*
+ * * ========================================
+ * * RESPONSIVO
+ * * ========================================
+ */
+
+@media (max-width: 1200px) {
+  .board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .column {
+    max-height: 65vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .container h1 {
+    margin-bottom: 18px;
+    font-size: 24px;
+  }
+
+  .board {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .column {
+    max-height: none;
+  }
+
+  .columnTitle {
+    position: relative;
+    top: auto;
+  }
+
+  .modal {
+    padding: 24px;
+  }
+
+  .toast {
+    right: 16px;
+    bottom: 16px;
+    left: 16px;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+
+  .column {
+    padding: 10px;
+    border-radius: 15px;
+  }
+
+  .modal {
+    padding: 20px;
+    border-radius: 18px;
+  }
+
+  .modalActions {
+    flex-direction: column-reverse;
+  }
+
+  .modalActions button {
+    width: 100%;
+  }
+
+  .toast {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toast button {
+    width: 100%;
+  }
+}

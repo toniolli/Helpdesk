@@ -1,0 +1,275 @@
+/* AUTENTICAÇÃO — TROCA OBRIGATÓRIA DE SENHA */
+
+/* TROCA DE SENHA — ESTRUTURA E FUNDO */
+
+.container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 24px;
+  background: radial-gradient(
+    circle at 78% 32%,
+    var(--color-rgba-71-105-220-0-42),
+    transparent 32%
+    ),
+    linear-gradient(
+    135deg,
+    var(--color-hex-101a4c) 0%,
+    var(--color-hex-182761) 48%,
+    var(--primary) 100%
+    );
+  min-height: 100vh;
+}
+
+.backgroundGlow {
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  right: -220px;
+  top: -250px;
+  border-radius: 50%;
+  background: var(--color-rgba-89-126-255-0-2);
+  filter: blur(90px);
+  animation: glow 6s ease-in-out infinite alternate;
+}
+
+.backgroundGlowSecondary {
+  position: absolute;
+  width: 450px;
+  height: 450px;
+  left: -220px;
+  bottom: -220px;
+  border-radius: 50%;
+  background: var(--color-rgba-83-103-220-0-12);
+  filter: blur(80px);
+  animation: glowSecondary 7s ease-in-out infinite alternate;
+}
+
+.backgroundGrid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  background-image: linear-gradient(
+    var(--color-rgba-255-255-255-0-045) 1px,
+    transparent 1px
+    ),
+    linear-gradient(
+    90deg,
+    var(--color-rgba-255-255-255-0-045) 1px,
+    transparent 1px
+    );
+  background-size: 55px 55px;
+  mask-image: radial-gradient(ellipse at center, black, transparent 80%);
+  pointer-events: none;
+}
+
+.backgroundCircle {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  left: -180px;
+  bottom: -180px;
+  border: 1px solid var(--color-rgba-255-255-255-0-08);
+  border-radius: 50%;
+  box-shadow: 0 0 0 80px var(--color-rgba-255-255-255-0-015),
+    0 0 0 160px var(--color-rgba-255-255-255-0-01);
+  pointer-events: none;
+}
+
+/* TROCA DE SENHA — CARTÃO PRINCIPAL */
+
+.card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 500px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 20px 50px var(--color-rgba-8-12-45-0-28);
+}
+
+.securityHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.companyIcon {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.card h2 {
+  margin: 6px 0 10px;
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--color-hex-0f172a);
+}
+
+.eyebrow {
+  color: var(--secondary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.companyFooter {
+  margin: 22px 0 0;
+  color: var(--text-light);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.companyFooter span {
+  margin: 0 6px;
+  color: var(--secondary);
+}
+
+/* TROCA DE SENHA — FORMULÁRIO E VALIDAÇÃO */
+
+.description {
+  margin: 0 0 24px;
+  color: var(--text-light);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.errorMessage {
+  margin-bottom: 16px;
+  padding: 11px 13px;
+  border: 1px solid var(--color-hex-fee2e2);
+  border-radius: 10px;
+  background: var(--color-hex-fee2e2);
+  color: var(--color-hex-b91c1c);
+  font-size: 13px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form input {
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--color-hex-dbe2ea);
+  border-radius: 10px;
+  background: white;
+  color: var(--text);
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.form input:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px var(--color-rgba-37-99-235-0-12);
+}
+
+.passwordInput {
+  position: relative;
+}
+
+.passwordInput input {
+  padding-right: 46px;
+}
+
+.passwordToggle {
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-light);
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.passwordToggle:hover:not(:disabled) {
+  background: var(--background);
+  color: var(--secondary);
+}
+
+.passwordToggle:disabled {
+  cursor: not-allowed;
+}
+
+.form button {
+  height: 42px;
+  border: none;
+  border-radius: 10px;
+  background: var(--secondary);
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.form button:hover {
+  background: var(--color-hex-1d4ed8);
+}
+
+.form button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.form .secondaryButton {
+  border: 1px solid var(--color-hex-dbe2ea);
+  background: white;
+  color: var(--text);
+}
+
+.form .secondaryButton:hover:not(:disabled) {
+  background: var(--background);
+}
+
+/* ANIMAÇÕES */
+
+@keyframes glow {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.16);
+  }
+}
+
+@keyframes glowSecondary {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.12);
+  }
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+}

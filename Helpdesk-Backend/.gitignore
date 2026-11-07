@@ -1,0 +1,13 @@
+bin/
+obj/
+.vs/
+appsettings.Development.local.json
+uploads/
+**/uploads/
+*.user
+*.pubxml.user
+.env
+.env.*
+!.env.example
+appsettings.Local.json
+appsettings.*.local.json

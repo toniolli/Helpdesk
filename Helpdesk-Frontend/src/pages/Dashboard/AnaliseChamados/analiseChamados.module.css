@@ -1,0 +1,1086 @@
+/* ANÁLISE DE CHAMADOS — LISTAGEM, DETALHES, COMENTÁRIOS E AUDITORIA */
+
+/* ANALISECHAMADOSTAB — ESTRUTURA COMPARTILHADA */
+
+.analysisView,
+.detailView {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: enter 0.24s ease;
+}
+
+/* ANALISECHAMADOSTAB — CABEÇALHO E RESULTADOS */
+
+.analysisIntro {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 15px;
+  padding: 20px 22px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.analysisIntroIcon,
+.metricIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.analysisIntroIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+}
+
+.analysisIntro span,
+.detailEyebrow,
+.sectionHeading > span,
+.solutionPanel > span,
+.modalTitle span {
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.analysisIntro h2,
+.sectionHeading h3 {
+  margin: 3px 0 0;
+  color: var(--text);
+}
+
+.analysisIntro h2 {
+  font-size: 19px;
+}
+
+.analysisIntro p,
+.sectionHeading p {
+  margin: 5px 0 0;
+  color: var(--text-light);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.analysisIntro > strong {
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 9%, transparent);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* CHAMADOANALISECARD — LISTAGEM VISUAL */
+
+.ticketGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.ticketCard {
+  --ticket-accent: var(--primary);
+  position: relative;
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 14px;
+  padding: 19px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ticketCard::before {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--ticket-accent);
+  content: "";
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.ticketCard:hover,
+.ticketCard:focus-visible {
+  border-color: color-mix(in srgb, var(--ticket-accent) 45%, var(--border));
+  box-shadow: 0 12px 28px color-mix(in srgb, var(--color-hex-0f172a) 9%, transparent);
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.ticketCard:hover::before,
+.ticketCard:focus-visible::before {
+  opacity: 1;
+}
+
+.ticketCardSlaViolated {
+  --ticket-accent: var(--danger);
+  border-color: color-mix(in srgb, var(--danger) 42%, var(--border));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--danger) 7%, var(--surface)),
+    color-mix(in srgb, var(--danger) 2%, var(--surface))
+    );
+}
+
+.ticketCardSlaCompliant {
+  --ticket-accent: var(--success);
+  border-color: color-mix(in srgb, var(--success) 38%, var(--border));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--success) 7%, var(--surface)),
+    color-mix(in srgb, var(--success) 2%, var(--surface))
+    );
+}
+
+.ticketCardSlaViolated .ticketArrow,
+.ticketCardSlaViolated .ticketAction,
+.ticketCardSlaViolated .ticketTimes > div {
+  color: var(--danger);
+}
+
+.ticketCardSlaViolated .ticketTimes {
+  background: color-mix(in srgb, var(--danger) 6%, var(--background));
+}
+
+.ticketCardSlaCompliant .ticketArrow,
+.ticketCardSlaCompliant .ticketAction,
+.ticketCardSlaCompliant .ticketTimes > div {
+  color: var(--success);
+}
+
+.ticketCardSlaCompliant .ticketTimes {
+  background: color-mix(in srgb, var(--success) 6%, var(--background));
+}
+
+.ticketCardHeader,
+.ticketCardHeader > div,
+.ticketDate,
+.ticketBadges,
+.ticketPeople > div,
+.ticketTimes > div,
+.infoRows > div,
+.modalTitle,
+.timelineMeta,
+.pagination,
+.pagination button,
+.detailActions button,
+.backButton,
+.iconButton,
+.loadOlderButton,
+.attachments button {
+  display: flex;
+  align-items: center;
+}
+
+.ticketCardHeader {
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.ticketCardHeader > div {
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.ticketNumber {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.ticketDate {
+  gap: 5px;
+  color: var(--text-light);
+  font-size: 11px;
+}
+
+.ticketArrow {
+  flex-shrink: 0;
+  color: var(--text-light);
+}
+
+.ticketBadges {
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.slaFlag {
+  gap: 5px;
+}
+
+.slaFlag svg {
+  flex-shrink: 0;
+}
+
+.slaFlagCompliant {
+  color: var(--success);
+  background: color-mix(in srgb, var(--success) 13%, transparent);
+}
+
+.slaFlagViolated {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 12%, transparent);
+}
+
+.slaFlagPending {
+  color: var(--text-light);
+  background: color-mix(in srgb, var(--text-light) 10%, transparent);
+}
+
+.statusOpen,
+.priorityMedium {
+  color: var(--warning);
+  background: color-mix(in srgb, var(--warning) 12%, transparent);
+}
+
+.statusService,
+.statusDistributed {
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 11%, transparent);
+}
+
+.statusClosed,
+.priorityLow {
+  color: var(--success);
+  background: color-mix(in srgb, var(--success) 11%, transparent);
+}
+
+.statusCanceled,
+.priorityCritical {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+}
+
+.statusWaiting,
+.statusEquipment,
+.priorityHigh {
+  color: var(--warning);
+  background: color-mix(in srgb, var(--warning) 12%, transparent);
+}
+
+.ticketDescription {
+  display: -webkit-box;
+  min-height: 42px;
+  margin: 0;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.ticketMeta {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.ticketMeta span {
+  max-width: 100%;
+  padding: 5px 8px;
+  overflow: hidden;
+  border-radius: 6px;
+  color: var(--text-light);
+  background: var(--background);
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ticketPeople {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.ticketPeople > div,
+.infoRows > div {
+  min-width: 0;
+  gap: 8px;
+  color: var(--text-light);
+}
+
+.ticketPeople span,
+.infoRows span,
+.ticketTimes span {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.ticketPeople small,
+.infoRows small,
+.ticketTimes small {
+  margin-bottom: 2px;
+  color: var(--text-light);
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.ticketTimes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 11px;
+  border-radius: 10px;
+  background: var(--background);
+}
+
+.ticketTimes > div {
+  gap: 7px;
+  color: var(--primary);
+}
+
+.ticketTimes strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.ticketAction {
+  align-self: flex-end;
+  color: var(--primary);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+/* ANÁLISE DE CHAMADOS — ESTADOS DE CARREGAMENTO E ERRO */
+
+.loadingState,
+.emptyState,
+.errorState,
+.modalLoading,
+.modalEmpty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 180px;
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  color: var(--text-light);
+  background: var(--surface);
+}
+
+.loadingState svg,
+.modalLoading svg {
+  animation: spin 0.9s linear infinite;
+}
+
+.emptyState {
+  flex-direction: column;
+}
+
+.emptyState strong {
+  color: var(--text);
+}
+
+.emptyState span {
+  font-size: 13px;
+}
+
+.errorState {
+  min-height: auto;
+  justify-content: space-between;
+  padding: 13px 16px;
+  border-style: solid;
+  border-color: color-mix(in srgb, var(--danger) 28%, transparent);
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 7%, var(--surface));
+  font-size: 13px;
+}
+
+.errorState button,
+.pagination button,
+.detailActions button,
+.backButton,
+.iconButton,
+.loadOlderButton,
+.timelineHeader button,
+.attachments button {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.errorState button {
+  padding: 7px 10px;
+  border-radius: 7px;
+  color: var(--text-white);
+  background: var(--danger);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pagination {
+  justify-content: center;
+  gap: 18px;
+  padding-top: 4px;
+}
+
+.pagination button {
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.pagination button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.pagination span {
+  color: var(--text-light);
+  font-size: 12px;
+}
+
+/* CHAMADOANALISEDETALHE — NAVEGAÇÃO E RESUMO */
+
+.backButton {
+  align-self: flex-start;
+  gap: 7px;
+  padding: 0;
+  color: var(--primary);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.detailHero {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--surface), color-mix(in srgb, var(--primary) 4%, var(--surface)));
+}
+
+.detailHeroMain {
+  max-width: 760px;
+}
+
+.detailHero h2 {
+  margin: 5px 0 8px;
+  color: var(--text);
+  font-size: 25px;
+}
+
+.detailHero p {
+  margin: 0 0 14px;
+  color: var(--text-light);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.detailActions {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.detailActions button {
+  gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.detailActions button:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+/* CHAMADOANALISEDETALHE — MÉTRICAS E INFORMAÇÕES */
+
+.metricsSection,
+.infoPanel,
+.solutionPanel {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+}
+
+.sectionHeading h3 {
+  font-size: 17px;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.metricCard {
+  display: flex;
+  min-height: 172px;
+  flex-direction: column;
+  padding: 15px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--background);
+}
+
+.metricFeatured {
+  border-color: color-mix(in srgb, var(--primary) 42%, var(--border));
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--primary) 9%, var(--surface)),
+    color-mix(in srgb, var(--primary) 3%, var(--surface))
+    );
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--primary) 8%, transparent);
+}
+
+.metricFeatured .metricIcon {
+  color: var(--text-white);
+  background: var(--primary);
+}
+
+.metricFeatured > strong {
+  color: var(--primary);
+}
+
+.metricIcon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 13px;
+  border-radius: 9px;
+}
+
+.metricCard > span {
+  color: var(--text-light);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.metricCard > strong {
+  margin-top: 4px;
+  color: var(--text);
+  font-size: 20px;
+}
+
+.metricCard > p {
+  margin: auto 0 0;
+  padding-top: 12px;
+  color: var(--text-light);
+  font-size: 10px;
+  line-height: 1.45;
+}
+
+.detailColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.infoRows {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 19px;
+}
+
+.infoRows > div {
+  align-items: flex-start;
+}
+
+.solutionPanel p {
+  margin: 9px 0 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+/* COMENTÁRIOS E AUDITORIA — ESTRUTURA DOS MODAIS */
+
+.modalOverlay {
+  position: fixed;
+  z-index: 1200;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: color-mix(in srgb, var(--color-hex-0f172a) 66%, transparent);
+  backdrop-filter: blur(3px);
+}
+
+.modal {
+  width: min(980px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: 0 24px 70px color-mix(in srgb, var(--color-hex-0f172a) 30%, transparent);
+}
+
+.chatModal {
+  width: min(820px, 100%);
+}
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.modalTitle {
+  gap: 11px;
+  color: var(--primary);
+}
+
+.modalTitle h2 {
+  margin: 2px 0 0;
+  color: var(--text);
+  font-size: 18px;
+}
+
+.iconButton {
+  width: 38px;
+  height: 38px;
+  justify-content: center;
+  border-radius: 9px;
+  color: var(--text-light);
+  background: var(--background);
+}
+
+/* COMENTARIOSANALISEMODAL — CONVERSA E ANEXOS */
+
+.chatBody,
+.auditBody {
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.chatBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: color-mix(in srgb, var(--background) 75%, var(--surface));
+}
+
+.loadOlderButton {
+  align-self: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 9%, var(--surface));
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.loadOlderButton svg {
+  animation: spin 0.9s linear infinite;
+}
+
+.messageLeft,
+.messageRight,
+.messageNeutral {
+  display: flex;
+}
+
+.messageLeft {
+  justify-content: flex-start;
+}
+
+.messageRight {
+  justify-content: flex-end;
+}
+
+.messageNeutral {
+  justify-content: center;
+}
+
+.messageBubble {
+  width: fit-content;
+  max-width: min(74%, 610px);
+  padding: 11px 13px;
+  border: 1px solid var(--border);
+  border-radius: 5px 13px 13px 13px;
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--color-hex-0f172a) 5%, transparent);
+}
+
+.messageRight .messageBubble {
+  border-color: color-mix(in srgb, var(--primary) 22%, var(--border));
+  border-radius: 13px 5px 13px 13px;
+  background: color-mix(in srgb, var(--primary) 8%, var(--surface));
+}
+
+.messageNeutral .messageBubble {
+  border-radius: 13px;
+  background: var(--background);
+}
+
+.messageBubble strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--primary);
+  font-size: 10px;
+}
+
+.messageBubble p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.messageBubble small {
+  display: block;
+  margin-top: 7px;
+  color: var(--text-light);
+  font-size: 9px;
+  text-align: right;
+}
+
+.attachments {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.attachments button {
+  max-width: 100%;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 7px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, var(--surface));
+  font-size: 10px;
+}
+
+.attachments button span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.attachments button svg:last-child {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.inlineError {
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--danger) 28%, transparent);
+  border-radius: 8px;
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 7%, var(--surface));
+  font-size: 12px;
+}
+
+.modalLoading,
+.modalEmpty {
+  min-height: 130px;
+  border: 0;
+}
+
+/* AUDITORIACHAMADOANALISEMODAL — LINHA DO TEMPO */
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+}
+
+.timelineItem {
+  position: relative;
+  padding: 0 0 17px 24px;
+}
+
+.timelineItem:not(:last-child)::before {
+  position: absolute;
+  top: 12px;
+  bottom: -4px;
+  left: 6px;
+  width: 1px;
+  background: var(--border);
+  content: "";
+}
+
+.timelineDot {
+  position: absolute;
+  top: 8px;
+  left: 1px;
+  width: 11px;
+  height: 11px;
+  border: 3px solid var(--surface);
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.timelineCard {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.timelineHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.timelineHeader > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.timelineHeader strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.timelineHeader span {
+  color: var(--text-light);
+  font-size: 10px;
+}
+
+.timelineHeader button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 7px;
+  color: var(--primary);
+  background: transparent;
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.timelineCard > p {
+  margin: 9px 0;
+  color: var(--text-light);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.timelineMeta {
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.timelineMeta span {
+  padding: 4px 7px;
+  border-radius: 6px;
+  color: var(--text-light);
+  background: var(--background);
+  font-size: 9px;
+}
+
+.auditValues {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 13px;
+  padding-top: 13px;
+  border-top: 1px solid var(--border);
+}
+
+.auditValues > div > span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-light);
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.auditValues pre {
+  max-height: 230px;
+  margin: 0;
+  padding: 10px;
+  overflow: auto;
+  border-radius: 7px;
+  color: var(--text);
+  background: var(--background);
+  font-size: 10px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* ANIMAÇÕES */
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 1180px) {
+  .ticketGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .metricsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 850px) {
+  .detailHero {
+    flex-direction: column;
+  }
+
+  .metricsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detailColumns {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 680px) {
+  .analysisIntro {
+    grid-template-columns: auto 1fr;
+  }
+
+  .analysisIntro > strong {
+    grid-column: 1 / -1;
+    justify-self: flex-start;
+  }
+
+  .ticketGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .ticketPeople, .ticketTimes, .infoRows {
+    grid-template-columns: 1fr;
+  }
+
+  .modalOverlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal {
+    width: 100%;
+    max-height: 92vh;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .chatBody, .auditBody {
+    max-height: calc(92vh - 76px);
+  }
+
+  .messageBubble {
+    max-width: 88%;
+  }
+
+  .auditValues {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .analysisIntro, .detailHero, .metricsSection, .infoPanel, .solutionPanel {
+    padding: 17px;
+  }
+
+  .metricsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .metricCard {
+    min-height: 150px;
+  }
+
+  .detailActions {
+    width: 100%;
+  }
+
+  .detailActions button {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .pagination {
+    gap: 8px;
+  }
+
+  .pagination button {
+    padding: 8px;
+  }
+
+  .pagination button {
+    font-size: 0;
+  }
+
+  .pagination button svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .errorState {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

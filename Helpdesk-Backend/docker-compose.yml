@@ -1,0 +1,15 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    ports:
+      - "${API_PORT:-8080}:8080"
+    volumes:
+      - helpdesk_uploads:/app/uploads
+    restart: unless-stopped
+
+volumes:
+  helpdesk_uploads:

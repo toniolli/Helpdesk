@@ -1,0 +1,662 @@
+/* NAVEGAÇÃO — BARRA SUPERIOR PRINCIPAL */
+
+/*
+ * * ========================================
+ * * TOPBAR
+ * * ========================================
+ */
+
+.topbar {
+  position: relative;
+  z-index: 50;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  background: var(--color-rgba-255-255-255-0-94);
+  border-bottom: 1px solid var(--color-rgba-26-38-89-0-08);
+  box-shadow: 0 4px 20px var(--color-rgba-22-32-73-0-04);
+  backdrop-filter: blur(14px);
+}
+
+/*
+ * * ========================================
+ * * ESQUERDA
+ * * ========================================
+ */
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.pageIndicator {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.indicatorIcon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  color: var(--color-hex-4052c4);
+  background: linear-gradient(
+    135deg,
+    var(--color-rgba-64-82-196-0-12),
+    var(--color-rgba-80-102-230-0-05)
+    );
+  border: 1px solid var(--color-rgba-64-82-196-0-08);
+  object-fit: contain;
+  padding: 4px;
+}
+
+.systemLabel {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--color-hex-9aa3bd);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-hex-1a2557);
+  font-size: 20px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+}
+
+/*
+ * * ========================================
+ * * DIREITA
+ * * ========================================
+ */
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/*
+ * * ========================================
+ * * STATUS ONLINE
+ * * ========================================
+ */
+
+.onlineStatus {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  color: var(--color-hex-4b5874);
+  background: var(--color-rgba-54-199-138-0-07);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.onlineDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-hex-36c78a);
+  box-shadow: 0 0 0 4px var(--color-rgba-54-199-138-0-12);
+  animation: onlinePulse 2s infinite;
+}
+
+/*
+ * * ========================================
+ * * DIVISOR
+ * * ========================================
+ */
+
+.verticalDivider {
+  width: 1px;
+  height: 30px;
+  background: var(--color-hex-e7eaf1);
+}
+
+/*
+ * * ========================================
+ * * NOTIFICAÇÕES
+ * * ========================================
+ */
+
+.notificationContainer {
+  position: relative;
+}
+
+.notificationButton {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  background: transparent;
+  color: var(--color-hex-56617d);
+  cursor: pointer;
+  transition: background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.notificationButton:hover {
+  color: var(--color-hex-4052c4);
+  background: var(--color-rgba-64-82-196-0-07);
+  border-color: var(--color-rgba-64-82-196-0-08);
+  transform: translateY(-1px);
+}
+
+.badge {
+  position: absolute;
+  top: 3px;
+  right: 2px;
+  min-width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  border: 2px solid white;
+  border-radius: 999px;
+  background: var(--color-hex-ef5b5b);
+  color: white;
+  font-size: 9px;
+  font-weight: 800;
+  box-shadow: 0 3px 8px var(--color-rgba-239-91-91-0-28);
+}
+
+/*
+ * * ========================================
+ * * DROPDOWN NOTIFICAÇÕES
+ * * ========================================
+ */
+
+.notificationDropdown {
+  position: absolute;
+  top: 52px;
+  right: -80px;
+  width: 390px;
+  max-height: 520px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--color-rgba-255-255-255-0-98);
+  border: 1px solid var(--color-rgba-28-40-94-0-1);
+  border-radius: 18px;
+  box-shadow: 0 22px 55px var(--color-rgba-24-34-79-0-18);
+  backdrop-filter: blur(18px);
+  animation: dropdownIn 0.2s ease-out;
+  z-index: 999;
+}
+
+.notificationTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--color-hex-edf0f5);
+}
+
+.dropdownLabel {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--color-hex-9aa3bd);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+}
+
+.notificationTop h3 {
+  margin: 0;
+  color: var(--color-hex-202943);
+  font-size: 17px;
+}
+
+.notificationCount {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: var(--color-rgba-64-82-196-0-08);
+  color: var(--color-hex-4052c4);
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.notificationList {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.notificationList::-webkit-scrollbar {
+  width: 5px;
+}
+
+.notificationList::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: var(--color-hex-d8ddea);
+}
+
+/*
+ * * ========================================
+ * * ITEM NOTIFICAÇÃO
+ * * ========================================
+ */
+
+.notificationItem {
+  position: relative;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--color-hex-f0f2f6);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.notificationItem:hover {
+  background: var(--color-hex-f8f9fc);
+}
+
+.notificationItem:last-child {
+  border-bottom: none;
+}
+
+.notificationHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 6px;
+}
+
+.notificationTitle {
+  color: var(--color-hex-25304e);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.notificationMessage {
+  color: var(--color-hex-707a91);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.notificationDate {
+  margin-top: 9px;
+  color: var(--color-hex-a2a9b9);
+  font-size: 10px;
+}
+
+.notificationDot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-hex-5872e6);
+  box-shadow: 0 0 8px var(--color-rgba-88-114-230-0-5);
+}
+
+/*
+ * * ========================================
+ * * NOTIFICAÇÃO VAZIA
+ * * ========================================
+ */
+
+.emptyNotification {
+  min-height: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  text-align: center;
+}
+
+.emptyBell {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  border-radius: 18px;
+  background: var(--color-rgba-64-82-196-0-08);
+  color: var(--color-hex-6578df);
+}
+
+.emptyNotification strong {
+  margin-bottom: 5px;
+  color: var(--color-hex-25304e);
+  font-size: 14px;
+}
+
+.emptyNotification span {
+  color: var(--color-hex-9098aa);
+  font-size: 12px;
+}
+
+/*
+ * * ========================================
+ * * AÇÕES NOTIFICAÇÃO
+ * * ========================================
+ */
+
+.notificationActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.acceptBtn,
+.rejectBtn {
+  flex: 1;
+  height: 34px;
+  border: none;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.acceptBtn {
+  background: var(--color-hex-35b981);
+  color: white;
+}
+
+.acceptBtn:hover {
+  background: var(--color-hex-2da574);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px var(--color-rgba-53-185-129-0-22);
+}
+
+.rejectBtn {
+  background: var(--color-hex-f3f4f7);
+  color: var(--color-hex-d45858);
+}
+
+.rejectBtn:hover {
+  background: var(--color-hex-ffeaea);
+  transform: translateY(-1px);
+}
+
+/*
+ * * ========================================
+ * * USUÁRIO
+ * * ========================================
+ */
+
+.userContainer {
+  position: relative;
+}
+
+.userButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 5px 8px 5px 6px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: transparent;
+  color: var(--color-hex-33405f);
+  cursor: pointer;
+  transition: background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.userButton:hover,
+.userButtonOpen {
+  background: var(--color-hex-f6f7fb);
+  border-color: var(--color-hex-eceff5);
+}
+
+.avatar {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: linear-gradient(
+    135deg,
+    var(--color-hex-4052c4),
+    var(--color-hex-27347d)
+    );
+  color: white;
+  box-shadow: 0 6px 14px var(--color-rgba-41-54-129-0-2);
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 120px;
+}
+
+.userName {
+  max-width: 150px;
+  overflow: hidden;
+  color: var(--color-hex-27304b);
+  font-size: 12px;
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userRole {
+  margin-top: 3px;
+  max-width: 150px;
+  overflow: hidden;
+  color: var(--color-hex-949bac);
+  font-size: 9px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.userChevron {
+  color: var(--color-hex-8b93a7);
+  transition: transform 0.2s ease;
+}
+
+.userChevronOpen {
+  transform: rotate(180deg);
+}
+
+/*
+ * * ========================================
+ * * DROPDOWN USUÁRIO
+ * * ========================================
+ */
+
+.dropdown {
+  position: absolute;
+  top: 56px;
+  right: 0;
+  width: 245px;
+  padding: 8px;
+  background: var(--color-rgba-255-255-255-0-98);
+  border: 1px solid var(--color-rgba-28-40-94-0-1);
+  border-radius: 16px;
+  box-shadow: 0 18px 45px var(--color-rgba-24-34-79-0-16);
+  animation: dropdownIn 0.2s ease-out;
+  z-index: 100;
+}
+
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+}
+
+.dropdownAvatar {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: var(--color-rgba-64-82-196-0-1);
+  color: var(--color-hex-4052c4);
+}
+
+.dropdownHeader strong,
+.dropdownHeader span {
+  display: block;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdownHeader strong {
+  color: var(--color-hex-28324d);
+  font-size: 12px;
+}
+
+.dropdownHeader span {
+  margin-top: 3px;
+  color: var(--color-hex-9aa1b2);
+  font-size: 10px;
+}
+
+.dropdownDivider {
+  height: 1px;
+  margin: 3px 6px 6px;
+  background: var(--color-hex-edf0f5);
+}
+
+.dropdownItem {
+  width: 100%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--color-hex-46516e);
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.2s ease,
+    color 0.2s ease;
+}
+
+.dropdownIcon {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: var(--color-hex-f4f5f9);
+  color: var(--color-hex-68738f);
+}
+
+.dropdownItem:hover {
+  background: var(--color-hex-f6f7fb);
+  color: var(--primary);
+}
+
+.logoutItem:hover {
+  color: var(--color-hex-d95353);
+  background: var(--color-hex-fff6f6);
+}
+
+.logoutItem:hover .dropdownIcon {
+  background: var(--color-hex-ffecec);
+  color: var(--color-hex-dc5b5b);
+}
+
+/*
+ * * ========================================
+ * * ANIMAÇÕES
+ * * ========================================
+ */
+
+@keyframes dropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px)
+      scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0)
+      scale(1);
+  }
+}
+
+@keyframes onlinePulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-rgba-54-199-138-0-35);
+  }
+
+  70% {
+    box-shadow: 0 0 0 6px var(--color-rgba-54-199-138-0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 var(--color-rgba-54-199-138-0);
+  }
+}
+
+/*
+ * * ========================================
+ * * RESPONSIVO
+ * * ========================================
+ */
+
+@media (max-width: 768px) {
+  .topbar {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .onlineStatus,
+  .systemLabel,
+  .userInfo,
+  .verticalDivider {
+    display: none;
+  }
+
+  .notificationDropdown {
+    position: fixed;
+    top: 72px;
+    right: 12px;
+    left: 12px;
+    width: auto;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .right {
+    gap: 8px;
+  }
+}
+
+.acceptBtn:disabled,
+.rejectBtn:disabled {
+  cursor: wait;
+  opacity: 0.68;
+  transform: none;
+  box-shadow: none;
+}

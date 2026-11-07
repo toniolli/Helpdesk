@@ -1,0 +1,536 @@
+/* NAVEGAÇÃO — BARRA LATERAL PRINCIPAL */
+
+/*
+ * * ========================================
+ * * SIDEBAR
+ * * ========================================
+ */
+
+.sidebar {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  overflow: hidden;
+  color: var(--color-hex-e8ebff);
+  background: linear-gradient(180deg, var(--color-hex-111a46) 0%, var(--color-hex-17245b) 45%, var(--color-hex-10183f) 100%);
+  border-right: 1px solid var(--color-rgba-255-255-255-0-08);
+  box-shadow: 8px 0 30px var(--color-rgba-9-15-48-0-08);
+  transition: width 0.3s ease;
+}
+
+/*
+ * * ========================================
+ * * ESTADOS
+ * * ========================================
+ */
+
+.open {
+  width: 250px;
+}
+
+.closed {
+  width: 78px;
+}
+
+/*
+ * * ========================================
+ * * FUNDO DECORATIVO
+ * * ========================================
+ */
+
+.sidebarGlow {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  top: -140px;
+  left: -120px;
+  border-radius: 50%;
+  background: var(--color-rgba-79-104-235-0-25);
+  filter: blur(65px);
+  pointer-events: none;
+}
+
+.sidebarPattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  background-image: linear-gradient(var(--color-rgba-255-255-255-0-04) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-rgba-255-255-255-0-04) 1px, transparent 1px);
+  background-size: 34px 34px;
+  pointer-events: none;
+}
+
+/*
+ * * ========================================
+ * * TOPO
+ * * ========================================
+ */
+
+.top {
+  position: relative;
+  z-index: 2;
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--color-rgba-255-255-255-0-08);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+}
+
+.logoIcon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 13px;
+  padding: 4px;
+  background: var(--color-rgba-255-255-255-0-1);
+  box-shadow: 0 8px 20px var(--color-rgba-0-0-0-0-25);
+  object-fit: contain;
+}
+
+.logoContent {
+  min-width: 0;
+}
+
+.logoSmall {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--color-rgba-210-218-255-0-55);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.logo {
+  margin: 0;
+  color: white;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+/*
+ * * ========================================
+ * * BOTÃO MENU
+ * * ========================================
+ */
+
+.menuButton {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 11px;
+  background: var(--color-rgba-255-255-255-0-06);
+  color: var(--color-rgba-255-255-255-0-75);
+  cursor: pointer;
+  transition: background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.menuButton:hover {
+  background: var(--color-rgba-255-255-255-0-12);
+  color: white;
+  transform: translateY(-1px);
+}
+
+/*
+ * * ========================================
+ * * MENU
+ * * ========================================
+ */
+
+.menu {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  padding: 20px 10px;
+  overflow-y: auto;
+}
+
+.menu::-webkit-scrollbar {
+  width: 5px;
+}
+
+.menu::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--color-rgba-255-255-255-0-15);
+}
+
+.menuLabel {
+  display: block;
+  padding: 0 10px 10px;
+  color: var(--color-rgba-207-215-255-0-4);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+/*
+ * * ========================================
+ * * ITENS DO MENU
+ * * ========================================
+ */
+
+.menuItem {
+  width: 100%;
+  position: relative;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 4px;
+  padding: 0 13px;
+  border-radius: 12px;
+  color: var(--color-rgba-232-235-255-0-72);
+  text-decoration: none;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+  transition: background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.menuItem svg {
+  flex-shrink: 0;
+}
+
+.menuItem span {
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.menuItem:hover {
+  background: var(--color-rgba-255-255-255-0-07);
+  color: white;
+  transform: translateX(2px);
+}
+
+/*
+ * * ========================================
+ * * ITEM ATIVO
+ * * ========================================
+ */
+
+.menuItem.active {
+  color: white;
+  background: linear-gradient(
+    90deg,
+    var(--color-rgba-81-103-231-0-42),
+    var(--color-rgba-81-103-231-0-08)
+    );
+  box-shadow: inset 1px 0 0 var(--color-rgba-126-145-255-0-6);
+}
+
+.menuItem.active::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  width: 3px;
+  height: 24px;
+  border-radius: 0 5px 5px 0;
+  background: var(--color-hex-7c91ff);
+  box-shadow: 0 0 12px var(--color-rgba-124-145-255-0-9);
+}
+
+.menuItem.active svg {
+  color: var(--color-hex-aab7ff);
+}
+
+/*
+ * * ========================================
+ * * GRUPO CHAMADOS
+ * * ========================================
+ */
+
+.menuGroup {
+  margin-bottom: 2px;
+}
+
+.menuItemOpen {
+  color: white;
+  background: var(--color-rgba-255-255-255-0-05);
+}
+
+.chevron {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  color: var(--color-rgba-255-255-255-0-55);
+}
+
+/*
+ * * ========================================
+ * * SUBMENU
+ * * ========================================
+ */
+
+.subMenu {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 2px 0 8px 22px;
+  padding: 6px 0 6px 12px;
+  border-left: 1px solid var(--color-rgba-255-255-255-0-1);
+  animation: subMenuIn 0.2s ease-out;
+}
+
+.subItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 38px;
+  padding: 0 10px;
+  border-radius: 9px;
+  color: var(--color-rgba-232-235-255-0-58);
+  text-decoration: none;
+  font-size: 12px;
+  transition: background 0.2s ease,
+    color 0.2s ease;
+}
+
+.subItem:hover {
+  color: white;
+  background: var(--color-rgba-255-255-255-0-06);
+}
+
+.subItem.active {
+  color: var(--color-hex-c8d0ff);
+  background: var(--color-rgba-91-111-230-0-18);
+}
+
+.subItemDot {
+  width: 5px;
+  height: 5px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-rgba-174-186-255-0-45);
+  transition: background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.subItem.active .subItemDot {
+  background: var(--color-hex-7f94ff);
+  box-shadow: 0 0 8px var(--color-rgba-127-148-255-0-9);
+}
+
+/*
+ * * ========================================
+ * * FOOTER
+ * * ========================================
+ */
+
+.bottom {
+  position: relative;
+  z-index: 2;
+  padding: 12px 10px 14px;
+  border-top: 1px solid var(--color-rgba-255-255-255-0-08);
+}
+
+/*
+ * * ========================================
+ * * STATUS DO SISTEMA
+ * * ========================================
+ */
+
+.systemStatus {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 2px 6px 12px;
+  padding: 10px 11px;
+  border-radius: 11px;
+  background: var(--color-rgba-255-255-255-0-04);
+}
+
+.systemStatusDot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-hex-42d79a);
+  box-shadow: 0 0 10px var(--color-rgba-66-215-154-0-8);
+  animation: statusPulse 2s infinite;
+}
+
+.systemStatusLabel,
+.systemStatusText {
+  display: block;
+}
+
+.systemStatusLabel {
+  margin-bottom: 2px;
+  color: var(--color-rgba-214-222-255-0-4);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.systemStatusText {
+  color: var(--color-rgba-255-255-255-0-85);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/*
+ * * ========================================
+ * * LOGOUT
+ * * ========================================
+ */
+
+.logout {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 13px;
+  border-radius: 12px;
+  color: var(--color-rgba-255-255-255-0-68);
+  cursor: pointer;
+  transition: background 0.2s ease,
+    color 0.2s ease;
+}
+
+.logoutIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout span {
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.logout:hover {
+  color: var(--color-hex-ffb1b1);
+  background: var(--color-rgba-255-96-96-0-1);
+}
+
+/*
+ * * ========================================
+ * * SIDEBAR FECHADA
+ * * ========================================
+ */
+
+.closed .top {
+  justify-content: center;
+  padding: 0;
+}
+
+.closed .brand {
+  display: flex;
+}
+
+.closed .menuButton {
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  opacity: 0;
+}
+
+.closed .menu {
+  padding: 20px 10px;
+}
+
+.closed .menuItem {
+  justify-content: center;
+  padding: 0;
+  min-height: 50px;
+}
+
+.closed .menuItem:hover {
+  transform: none;
+}
+
+.closed .menuItem.active::before {
+  left: -10px;
+}
+
+.closed .logout {
+  justify-content: center;
+  padding: 0;
+}
+
+.closed .bottom {
+  padding: 12px 10px 14px;
+}
+
+/*
+ * * ========================================
+ * * ANIMAÇÕES
+ * * ========================================
+ */
+
+@keyframes subMenuIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes statusPulse {
+  0% {
+    box-shadow: 0 0 0 0 var(--color-rgba-66-215-154-0-45);
+  }
+
+  70% {
+    box-shadow: 0 0 0 7px var(--color-rgba-66-215-154-0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 var(--color-rgba-66-215-154-0);
+  }
+}
+
+/*
+ * * ========================================
+ * * RESPONSIVO
+ * * ========================================
+ */
+
+@media (max-width: 768px) {
+  .sidebar.open {
+    width: 220px;
+  }
+
+  .sidebar.closed {
+    width: 68px;
+  }
+}
+
+.subItem svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  color: var(--color-rgba-174-186-255-0-58);
+}
+
+.subItem.active svg {
+  color: var(--color-hex-9eaeff);
+}

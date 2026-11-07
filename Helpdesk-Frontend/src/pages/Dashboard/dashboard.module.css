@@ -1,0 +1,1239 @@
+/* DASHBOARD — INDICADORES, FILTROS E ABAS GERENCIAIS */
+
+.container {
+  padding: 28px;
+  max-width: 1680px;
+  margin: 0 auto;
+}
+
+/*
+ * * =========================
+ * * HEADER
+ * * =========================
+ */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.headerIcon {
+  display: none;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.headerInfo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.profileBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 20px;
+  background: color-mix(
+    in srgb,
+    var(--primary) 12%,
+    transparent
+    );
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.update {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.updating {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.headerActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.openFiltersButton,
+.clearFiltersButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 0;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.openFiltersButton {
+  min-height: 40px;
+  padding: 9px 15px;
+  border-radius: 9px;
+  background: var(--primary);
+  color: var(--text-white);
+  box-shadow: 0 5px 14px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+.openFiltersButton:hover {
+  background: var(--primary-hover);
+}
+
+.clearFiltersButton {
+  min-height: 40px;
+  padding: 9px 13px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface);
+  color: var(--text-light);
+}
+
+.clearFiltersButton:hover:not(:disabled) {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.clearFiltersButton:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.retryButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 39px;
+  padding: 9px 15px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.retryButton {
+  background: var(--primary);
+  color: var(--text-white);
+}
+
+.retryButton:hover:not(:disabled) {
+  background: var(--primary-hover);
+}
+
+.errorMessage {
+  margin-bottom: 18px;
+  padding: 11px 14px;
+  border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+  color: var(--danger);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+/*
+ * * =========================
+ * * ABAS
+ * * =========================
+ */
+
+.tabs {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 22px;
+  padding: 5px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.tabs button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 8px 16px;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--text-light);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.tabs button:hover {
+  background: color-mix(in srgb, var(--primary) 7%, transparent);
+  color: var(--primary);
+}
+
+.tabs .activeTab {
+  background: var(--primary);
+  color: var(--text-white);
+  box-shadow: 0 4px 10px color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+.tabs .activeTab:hover {
+  background: var(--primary-hover);
+  color: var(--text-white);
+}
+
+.tabContent {
+  animation: showTab 0.2s ease;
+}
+
+/* ANIMAÇÕES */
+
+@keyframes showTab {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/*
+ * * =========================
+ * * CARDS
+ * * =========================
+ */
+
+.cardsGrid,
+.indicatorsGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.card {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px var(--color-rgba-15-23-42-0-04);
+  transition: transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px var(--color-rgba-0-0-0-0-08);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: auto;
+  height: 3px;
+  background: var(--primary);
+}
+
+/*
+ * * =========================
+ * * CARD HEADER
+ * * =========================
+ */
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.cardLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--text-light);
+}
+
+.cardIcon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: color-mix(
+    in srgb,
+    var(--primary) 12%,
+    transparent
+    );
+  color: var(--primary);
+}
+
+.cardValue {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 750;
+  letter-spacing: -0.5px;
+  color: var(--text);
+}
+
+.cardsGrid .card {
+  min-height: 138px;
+  padding: 19px 18px;
+  box-shadow: 0 3px 10px var(--color-rgba-15-23-42-0-04);
+}
+
+.cardsGrid .card::before {
+  display: none;
+}
+
+.cardsGrid .cardHeader {
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.cardsGrid .cardLabel {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.cardsGrid .cardIcon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+
+.cardsGrid .cardValue {
+  color: var(--color-hex-18224f);
+  font-size: 31px;
+  font-weight: 800;
+}
+
+.indicatorsGrid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.indicatorsGrid .card {
+  padding: 15px;
+  box-shadow: none;
+}
+
+.indicatorsGrid .cardHeader {
+  margin-bottom: 10px;
+}
+
+.indicatorsGrid .cardIcon {
+  width: 31px;
+  height: 31px;
+  border-radius: 9px;
+}
+
+.indicatorsGrid .cardValue {
+  font-size: 24px;
+}
+
+.slaBreakdownHeader {
+  margin: 4px 0 14px;
+}
+
+.slaBreakdownHeader h3 {
+  margin: 4px 0 3px;
+}
+
+.slaBreakdownHeader p {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 13px;
+}
+
+.slaBreakdownGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.operationalStrip {
+  display: grid;
+  grid-template-columns: minmax(190px, 1.15fr) repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: 0;
+  margin-bottom: 26px;
+  overflow: hidden;
+  border: 1px solid var(--color-hex-dce3f3);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 4px 14px var(--color-rgba-15-23-42-0-04);
+}
+
+.operationalIntro,
+.operationalItem {
+  min-height: 72px;
+  padding: 14px 18px;
+}
+
+.operationalIntro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+}
+
+.operationalIntro span {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.operationalIntro small {
+  color: var(--text-light);
+  font-size: 12px;
+}
+
+.operationalItem {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  border-left: 1px solid var(--border);
+  color: var(--text-light);
+  font-size: 12px;
+}
+
+.operationalItem strong {
+  color: var(--text);
+  font-size: 15px;
+}
+
+.operationalDanger svg {
+  color: var(--danger);
+}
+
+.operationalWarning svg {
+  color: var(--warning);
+}
+
+.operationalSuccess svg {
+  color: var(--success);
+}
+
+/*
+ * * =========================
+ * * CORES DOS CARDS
+ * * =========================
+ */
+
+.total::before,
+.primary::before {
+  background: var(--primary);
+}
+
+.total .cardIcon,
+.primary .cardIcon {
+  background: color-mix(
+    in srgb,
+    var(--primary) 12%,
+    transparent
+    );
+  color: var(--primary);
+}
+
+.abertos::before,
+.warning::before {
+  background: var(--warning);
+}
+
+.abertos .cardIcon,
+.warning .cardIcon {
+  background: color-mix(
+    in srgb,
+    var(--warning) 15%,
+    transparent
+    );
+  color: var(--warning);
+}
+
+.atendimento::before,
+.info::before {
+  background: var(--primary-light);
+}
+
+.atendimento .cardIcon,
+.info .cardIcon {
+  background: color-mix(
+    in srgb,
+    var(--primary-light) 15%,
+    transparent
+    );
+  color: var(--primary-light);
+}
+
+.fechados::before,
+.success::before {
+  background: var(--success);
+}
+
+.fechados .cardIcon,
+.success .cardIcon {
+  background: color-mix(
+    in srgb,
+    var(--success) 14%,
+    transparent
+    );
+  color: var(--success);
+}
+
+.cancelados::before,
+.danger::before {
+  background: var(--danger);
+}
+
+.cancelados .cardIcon,
+.danger .cardIcon {
+  background: color-mix(
+    in srgb,
+    var(--danger) 13%,
+    transparent
+    );
+  color: var(--danger);
+}
+
+/*
+ * * =========================
+ * * SEÇÕES
+ * * =========================
+ */
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 34px 0 16px;
+}
+
+.sectionEyebrow {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--primary);
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/*
+ * * =========================
+ * * INDICADORES DE TEMPO
+ * * =========================
+ */
+
+.timeOverview {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  border: 1px solid color-mix(in srgb, var(--primary) 20%, var(--border));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--primary) 6%, var(--surface));
+}
+
+.timeOverviewIcon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: var(--primary);
+  color: var(--text-white);
+}
+
+.timeOverview > div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.timeOverview strong {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.timeOverview span {
+  color: var(--text-light);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.timeGroups {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.timeGroup {
+  --time-accent: var(--primary);
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--time-accent);
+  border-radius: 10px;
+  background: var(--surface);
+  box-shadow: 0 4px 14px var(--color-rgba-15-23-42-0-04);
+}
+
+.timeGeneral {
+  --time-accent: var(--primary);
+}
+
+.timePaused {
+  --time-accent: var(--warning);
+}
+
+.timeResolution {
+  --time-accent: var(--success);
+}
+
+.timeGroupHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.timeGroupHeader h3 {
+  margin: 0 0 3px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 750;
+}
+
+.timeGroupHeader p {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 12px;
+}
+
+.timeGroupBadge {
+  flex-shrink: 0;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--time-accent) 12%, transparent);
+  color: var(--time-accent);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.timeGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.timeCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 160px;
+  padding: 17px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface);
+  outline: none;
+  box-shadow: 0 3px 10px var(--color-rgba-15-23-42-0-04);
+  transition: transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.timeCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 16px;
+  left: 16px;
+  height: 3px;
+  border-radius: 0 0 4px 4px;
+  background: var(--time-accent);
+}
+
+.timeCard:hover,
+.timeCard:focus {
+  z-index: 10;
+  border-color: color-mix(in srgb, var(--time-accent) 52%, var(--border));
+  box-shadow: 0 12px 26px var(--color-rgba-0-0-0-0-08);
+  transform: translateY(-4px);
+}
+
+.timeCard:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--time-accent) 16%, transparent),
+    0 12px 26px var(--color-rgba-0-0-0-0-08);
+}
+
+.timeCardTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.timeIcon {
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--time-accent) 12%, transparent);
+  color: var(--time-accent);
+}
+
+.timeInfoIcon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-light);
+}
+
+.timeCardContent {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.timeCardContent span {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.timeCardContent strong {
+  margin: 4px 0 6px;
+  color: var(--color-hex-18224f);
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.6px;
+  line-height: 1.2;
+}
+
+.timeCardContent small {
+  color: var(--text-light);
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.timeTooltip {
+  position: absolute;
+  right: 10px;
+  bottom: calc(100% + 10px);
+  left: 10px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 13px;
+  border-radius: 8px;
+  background: var(--color-hex-0f172a);
+  color: var(--text-white);
+  box-shadow: 0 12px 28px var(--color-rgba-0-0-0-0-08);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  visibility: hidden;
+  transition: opacity 0.18s ease,
+    transform 0.18s ease,
+    visibility 0.18s ease;
+}
+
+.timeTooltip::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 14px;
+  border: 6px solid transparent;
+  border-top-color: var(--color-hex-0f172a);
+}
+
+.timeTooltip strong {
+  color: var(--text-white);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.timeTooltip span {
+  color: color-mix(in srgb, var(--text-white) 82%, transparent);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.timeCard:hover .timeTooltip,
+.timeCard:focus .timeTooltip {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  padding: 24px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  color: var(--text-light);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/*
+ * * =========================
+ * * GRÁFICOS
+ * * =========================
+ */
+
+.chartsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.chartCard,
+.fullWidthCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 14px var(--color-rgba-15-23-42-0-04);
+}
+
+.fullWidthCard {
+  margin-bottom: 24px;
+}
+
+.chartHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 30px;
+  margin-bottom: 14px;
+}
+
+.chartTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--primary);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.statusChartLayout {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.9fr) minmax(220px, 1.1fr);
+  align-items: center;
+  gap: 4px;
+  min-height: 280px;
+}
+
+.donutChart {
+  position: relative;
+}
+
+.donutTotal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.donutTotal span {
+  color: var(--text-light);
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.donutTotal strong {
+  color: var(--text);
+  font-size: 25px;
+  letter-spacing: -0.7px;
+}
+
+.chartLegend {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.legendItem {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr) auto 34px;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-light);
+  font-size: 12px;
+}
+
+.legendItem strong {
+  color: var(--text);
+}
+
+.legendItem small {
+  text-align: right;
+}
+
+.legendColor {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.chartTitleGroup .cardTitle {
+  color: var(--text);
+}
+
+/*
+ * * =========================
+ * * PLACEHOLDER
+ * * =========================
+ */
+
+.chartPlaceholder,
+.chartLargePlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  color: var(--text-light);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.chartPlaceholder {
+  height: 300px;
+}
+
+.chartLargePlaceholder {
+  height: 380px;
+}
+
+/*
+ * * =========================
+ * * RANKINGS
+ * * =========================
+ */
+
+.rankingsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+/*
+ * * =========================
+ * * LOADING
+ * * =========================
+ */
+
+.loading {
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-light);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.loadingIcon {
+  color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/*
+ * * =========================
+ * * RESPONSIVO - TABLET
+ * * =========================
+ */
+
+@media (max-width: 1400px) {
+  .indicatorsGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .cardsGrid,
+  .indicatorsGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .timeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .slaBreakdownGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/*
+ * * =========================
+ * * RESPONSIVO - MOBILE
+ * * =========================
+ */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .headerActions {
+    width: 100%;
+  }
+
+  .openFiltersButton {
+    flex: 1;
+  }
+
+  .headerContent {
+    align-items: flex-start;
+  }
+
+  .headerIcon {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+  }
+
+  .header h1 {
+    font-size: 22px;
+  }
+
+  .headerInfo {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+
+  .timeGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeOverview {
+    align-items: flex-start;
+  }
+
+  .timeGroupHeader {
+    flex-direction: column;
+  }
+
+  .timeTooltip {
+    position: static;
+    max-height: 0;
+    margin-top: -14px;
+    padding: 0 13px;
+    overflow: hidden;
+  }
+
+  .timeTooltip::before {
+    display: none;
+  }
+
+  .timeCard:hover .timeTooltip,
+  .timeCard:focus .timeTooltip {
+    max-height: 180px;
+    margin-top: 0;
+    padding: 12px 13px;
+  }
+
+  .tabs {
+    overflow-x: auto;
+  }
+
+  .tabs button {
+    flex: 1 0 auto;
+  }
+
+  .cardsGrid,
+  .indicatorsGrid,
+  .chartsGrid,
+  .rankingsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .operationalStrip,
+  .statusChartLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .operationalItem {
+    min-height: 54px;
+    border-top: 1px solid var(--border);
+    border-left: 0;
+  }
+
+  .sectionHeader {
+    margin-top: 28px;
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .cardValue {
+    font-size: 28px;
+  }
+
+  .chartCard,
+  .fullWidthCard {
+    padding: 16px;
+  }
+
+  .chartPlaceholder {
+    height: 250px;
+  }
+
+  .chartLargePlaceholder {
+    height: 300px;
+  }
+
+  .timeGroup {
+    padding: 16px;
+  }
+}
+
+/*
+ * * =========================
+ * * RESPONSIVO - TELAS PEQUENAS
+ * * =========================
+ */
+
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+
+  .headerContent {
+    gap: 12px;
+  }
+
+  .headerActions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .clearFiltersButton,
+  .openFiltersButton {
+    width: 100%;
+  }
+
+  .headerIcon {
+    width: 42px;
+    height: 42px;
+  }
+
+  .header h1 {
+    font-size: 20px;
+  }
+
+  .profileBadge {
+    font-size: 11px;
+  }
+
+  .update {
+    font-size: 11px;
+  }
+
+  .timeOverview {
+    padding: 14px;
+  }
+
+  .timeCardContent strong {
+    font-size: 27px;
+  }
+
+  .cardHeader {
+    margin-bottom: 14px;
+  }
+
+  .cardValue {
+    font-size: 26px;
+  }
+}

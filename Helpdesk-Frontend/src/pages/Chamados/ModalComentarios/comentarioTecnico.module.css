@@ -1,0 +1,911 @@
+/* MODAL DE CONVERSA COMPARTILHADO POR TÉCNICO E SOLICITANTE */
+
+.overlay {
+  position: fixed;
+  z-index: 9999;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--color-rgba-15-23-42-0-55);
+  backdrop-filter: blur(6px);
+}
+
+.overlayMinimized {
+  pointer-events: none;
+}
+
+.modal {
+  display: flex;
+  width: min(820px, 95vw);
+  height: min(820px, calc(100vh - 48px));
+  min-height: 520px;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--color-rgba-148-163-184-0-25);
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow:
+    0 28px 70px var(--color-rgba-15-23-42-0-28),
+    0 8px 22px var(--color-rgba-15-23-42-0-08);
+  animation: modalEntrance 0.22s ease-out;
+}
+
+.minimized {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 340px;
+  height: auto;
+  min-height: 0;
+  border-radius: 16px;
+  pointer-events: all;
+  z-index: 10000;
+  box-shadow: 0 20px 45px var(--color-rgba-15-23-42-0-3);
+}
+
+/* CABEÇALHO */
+
+.header {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 15px 18px;
+  border-bottom: 1px solid var(--border);
+  background:
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--primary) 4%, var(--surface)),
+      var(--surface) 60%
+    );
+}
+
+.headerIdentity {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 12px;
+}
+
+.headerIcon {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 13px;
+  color: var(--text-white);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  box-shadow: 0 7px 16px color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+.headerText {
+  min-width: 0;
+}
+
+.headerText > span {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--primary);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.9px;
+  text-transform: uppercase;
+}
+
+.headerText h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.headerText p {
+  max-width: 360px;
+  margin: 3px 0 0;
+  overflow: hidden;
+  color: var(--text-light);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.headerActions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 7px;
+}
+
+.iconButton,
+.finishTicketButton,
+.attachButton,
+.sendButton,
+.carregarMais,
+.newMessageButton,
+.inlineError button,
+.selectedFile button,
+.anexoBtn,
+.cancelBtn,
+.confirmFinishButton {
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.iconButton {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--text-light);
+  background: color-mix(in srgb, var(--background) 82%, transparent);
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.iconButton:hover {
+  color: var(--text);
+  background: var(--secondary-light);
+  transform: translateY(-1px);
+}
+
+.finishTicketButton {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--danger) 28%, var(--border));
+  border-radius: 10px;
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 4%, var(--surface));
+  font-size: 12px;
+  font-weight: 750;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.finishTicketButton:hover {
+  border-color: color-mix(in srgb, var(--danger) 48%, var(--border));
+  background: color-mix(in srgb, var(--danger) 8%, var(--surface));
+}
+
+/* HISTÓRICO */
+
+.body {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 20px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background:
+    radial-gradient(
+      circle at 12% 8%,
+      color-mix(in srgb, var(--primary) 5%, transparent),
+      transparent 30%
+    ),
+    linear-gradient(180deg, var(--background), var(--secondary-light));
+  scroll-behavior: smooth;
+}
+
+.chatArea {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.carregarMais {
+  display: inline-flex;
+  min-height: 32px;
+  align-self: center;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+  padding: 7px 13px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  box-shadow: 0 3px 10px var(--color-rgba-15-23-42-0-05);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.carregarMais:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--primary) 32%, var(--border));
+  background: var(--surface);
+}
+
+.carregarMais:disabled {
+  cursor: wait;
+  opacity: 0.65;
+}
+
+.systemMessage {
+  width: min(520px, 88%);
+  align-self: center;
+  margin: 5px 0 12px;
+  padding: 12px 15px;
+  border: 1px solid color-mix(in srgb, var(--primary) 13%, var(--border));
+  border-radius: 13px;
+  color: var(--text);
+  background: color-mix(in srgb, var(--surface) 88%, var(--background));
+  text-align: center;
+}
+
+.systemMessage > span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--primary);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.65px;
+  text-transform: uppercase;
+}
+
+.systemMessage p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.systemMessage small {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-light);
+  font-size: 9px;
+}
+
+.messageLeft,
+.messageRight {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.messageLeft {
+  justify-content: flex-start;
+}
+
+.messageRight {
+  justify-content: flex-end;
+}
+
+.avatar {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--primary) 14%, var(--border));
+  border-radius: 50%;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 8%, var(--surface));
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.messageBubble {
+  width: fit-content;
+  max-width: min(72%, 580px);
+  padding: 10px 13px 8px;
+  border: 1px solid var(--border);
+  border-radius: 5px 15px 15px;
+  color: var(--text);
+  background: var(--surface);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-hex-0f172a) 5%, transparent);
+}
+
+.messageRight .messageBubble {
+  border-color: color-mix(in srgb, var(--primary) 22%, var(--border));
+  border-radius: 15px 5px 15px 15px;
+  background: color-mix(in srgb, var(--primary) 8%, var(--surface));
+}
+
+.messageBubble strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--primary);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.messageBubble p {
+  margin: 0;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.messageBubble small {
+  display: block;
+  margin-top: 6px;
+  color: var(--text-light);
+  font-size: 9px;
+  text-align: right;
+}
+
+/* ANEXOS DA CONVERSA */
+
+.anexosComentario {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-top: 8px;
+}
+
+.anexoBtn {
+  display: flex;
+  width: min(310px, 100%);
+  min-width: 0;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 9px;
+  border: 1px solid color-mix(in srgb, var(--primary) 13%, var(--border));
+  border-radius: 9px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 5%, var(--surface));
+  text-align: left;
+  transition:
+    background 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.anexoBtn:hover {
+  border-color: color-mix(in srgb, var(--primary) 34%, var(--border));
+  background: color-mix(in srgb, var(--primary) 9%, var(--surface));
+}
+
+.anexoBtn span {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.anexoBtn svg {
+  flex: 0 0 auto;
+}
+
+.anexoBtn svg:last-child {
+  margin-left: auto;
+}
+
+/* ESTADOS DO HISTÓRICO */
+
+.loadingState,
+.emptyState {
+  display: flex;
+  min-height: 64px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: var(--text-light);
+  font-size: 11px;
+}
+
+.emptyState {
+  margin-top: 4px;
+  padding: 14px;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 70%, transparent);
+}
+
+.inlineError {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid color-mix(in srgb, var(--danger) 28%, var(--border));
+  border-radius: 10px;
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 6%, var(--surface));
+  font-size: 11px;
+}
+
+.inlineError button {
+  flex: 0 0 auto;
+  padding: 5px 8px;
+  border-radius: 6px;
+  color: var(--text-white);
+  background: var(--danger);
+  font-size: 10px;
+  font-weight: 750;
+}
+
+.newMessageButton {
+  position: sticky;
+  z-index: 2;
+  bottom: 2px;
+  display: flex;
+  min-height: 34px;
+  align-items: center;
+  gap: 6px;
+  margin: 12px auto 0;
+  padding: 7px 12px;
+  border-radius: 999px;
+  color: var(--text-white);
+  background: var(--primary);
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--primary) 28%, transparent);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.newMessageButton:hover {
+  background: var(--primary-hover);
+}
+
+/* COMPOSITOR */
+
+.composer {
+  flex: 0 0 auto;
+  padding: 12px 16px 10px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: 0 -8px 24px color-mix(in srgb, var(--color-hex-0f172a) 4%, transparent);
+}
+
+.composerRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 9px;
+}
+
+.composerRow textarea {
+  width: 100%;
+  min-height: 42px;
+  max-height: 120px;
+  flex: 1;
+  resize: none;
+  padding: 10px 12px;
+  overflow-y: auto;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  color: var(--text);
+  background: var(--background);
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.55;
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+}
+
+.composerRow textarea:focus {
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--border));
+  outline: none;
+  background: var(--surface);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.composerRow textarea::placeholder {
+  color: color-mix(in srgb, var(--text-light) 78%, transparent);
+}
+
+.attachButton,
+.sendButton {
+  display: grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 12px;
+  transition:
+    color 0.18s ease,
+    background 0.18s ease,
+    transform 0.18s ease;
+}
+
+.attachButton {
+  border: 1px solid var(--border);
+  color: var(--primary);
+  background: var(--background);
+}
+
+.attachButton:hover:not(:disabled) {
+  border-color: color-mix(in srgb, var(--primary) 28%, var(--border));
+  background: color-mix(in srgb, var(--primary) 7%, var(--surface));
+  transform: translateY(-1px);
+}
+
+.sendButton {
+  color: var(--text-white);
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+.sendButton:hover:not(:disabled) {
+  background: linear-gradient(135deg, var(--primary-hover), var(--primary));
+  transform: translateY(-1px);
+}
+
+.attachButton:disabled,
+.sendButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+  transform: none;
+}
+
+.composerHint {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+  padding: 0 51px;
+  color: var(--text-light);
+  font-size: 9px;
+}
+
+/* ARQUIVOS SELECIONADOS */
+
+.selectedFiles {
+  margin-bottom: 10px;
+}
+
+.selectedFilesHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  color: var(--text-light);
+  font-size: 9px;
+  font-weight: 750;
+  text-transform: uppercase;
+}
+
+.selectedFilesHeader small {
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.selectedFilesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.selectedFile {
+  display: flex;
+  max-width: 230px;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 6px 6px 8px;
+  border: 1px solid color-mix(in srgb, var(--primary) 16%, var(--border));
+  border-radius: 9px;
+  color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 6%, var(--surface));
+}
+
+.selectedFile > span {
+  min-width: 0;
+  overflow: hidden;
+  font-size: 10px;
+  font-weight: 650;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.selectedFile > svg {
+  flex: 0 0 auto;
+}
+
+.selectedFile button {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 6px;
+  color: var(--text-light);
+  background: transparent;
+}
+
+.selectedFile button:hover {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 8%, transparent);
+}
+
+/* ENCERRAMENTO DO CHAMADO */
+
+.solutionPanel {
+  flex: 0 0 auto;
+  padding: 15px 17px 16px;
+  border-top: 1px solid color-mix(in srgb, var(--danger) 22%, var(--border));
+  background: color-mix(in srgb, var(--danger) 3%, var(--surface));
+  box-shadow: 0 -8px 24px color-mix(in srgb, var(--color-hex-0f172a) 4%, transparent);
+}
+
+.solutionHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.solutionHeader span {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--danger);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+}
+
+.solutionHeader h3 {
+  margin: 0;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.solutionPanel textarea {
+  width: 100%;
+  min-height: 78px;
+  resize: vertical;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  color: var(--text);
+  background: var(--surface);
+  font: inherit;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.solutionPanel textarea:focus {
+  border-color: color-mix(in srgb, var(--danger) 48%, var(--border));
+  outline: none;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--danger) 8%, transparent);
+}
+
+.solutionActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.cancelBtn,
+.confirmFinishButton {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 13px;
+  border-radius: 9px;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.cancelBtn {
+  border: 1px solid var(--border);
+  color: var(--text-light);
+  background: var(--surface);
+}
+
+.confirmFinishButton {
+  color: var(--text-white);
+  background: var(--danger);
+  box-shadow: 0 5px 12px color-mix(in srgb, var(--danger) 18%, transparent);
+}
+
+.confirmFinishButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* FOCO, ROLAGEM E MOVIMENTO */
+
+.iconButton:focus-visible,
+.finishTicketButton:focus-visible,
+.attachButton:focus-visible,
+.sendButton:focus-visible,
+.carregarMais:focus-visible,
+.newMessageButton:focus-visible,
+.anexoBtn:focus-visible,
+.selectedFile button:focus-visible,
+.cancelBtn:focus-visible,
+.confirmFinishButton:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--primary) 24%, transparent);
+  outline-offset: 2px;
+}
+
+.body::-webkit-scrollbar,
+.composerRow textarea::-webkit-scrollbar {
+  width: 7px;
+}
+
+.body::-webkit-scrollbar-track,
+.composerRow textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.body::-webkit-scrollbar-thumb,
+.composerRow textarea::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--color-hex-cbd5e1);
+}
+
+.spinning {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes modalEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(7px) scale(0.992);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .overlay {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal {
+    width: 100%;
+    max-width: none;
+    height: 100dvh;
+    min-height: 0;
+    border-width: 0;
+    border-radius: 0;
+  }
+
+  .minimized {
+    right: 12px !important;
+    bottom: 12px;
+    width: calc(100vw - 24px);
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+  }
+
+  .header {
+    padding: 13px 14px;
+  }
+
+  .headerText p {
+    max-width: 260px;
+  }
+
+  .body {
+    padding: 15px 13px;
+  }
+
+  .messageBubble {
+    max-width: 86%;
+  }
+
+  .composer {
+    padding: 10px 12px max(9px, env(safe-area-inset-bottom));
+  }
+
+  .composerHint {
+    padding: 0 50px;
+  }
+
+  .solutionPanel {
+    padding: 13px 14px max(13px, env(safe-area-inset-bottom));
+  }
+}
+
+@media (max-height: 600px) and (min-width: 769px) {
+  .modal {
+    height: calc(100vh - 24px);
+    min-height: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .headerIcon {
+    width: 38px;
+    height: 38px;
+    border-radius: 11px;
+  }
+
+  .headerText p {
+    max-width: 150px;
+  }
+
+  .finishTicketButton {
+    width: 38px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .finishTicketButton span {
+    display: none;
+  }
+
+  .messageBubble {
+    max-width: calc(100% - 38px);
+  }
+
+  .avatar {
+    width: 28px;
+    height: 28px;
+  }
+
+  .systemMessage {
+    width: 94%;
+  }
+
+  .composerHint {
+    justify-content: flex-start;
+    padding: 0 51px;
+  }
+
+  .composerHint span:last-child {
+    display: none;
+  }
+
+  .selectedFile {
+    max-width: 100%;
+  }
+
+  .solutionActions {
+    flex-direction: column-reverse;
+  }
+
+  .cancelBtn,
+  .confirmFinishButton {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .modal,
+  .spinning {
+    animation: none;
+  }
+
+  .body {
+    scroll-behavior: auto;
+  }
+
+  .iconButton,
+  .finishTicketButton,
+  .attachButton,
+  .sendButton {
+    transition: none;
+  }
+}
